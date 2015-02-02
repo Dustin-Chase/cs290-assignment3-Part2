@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<link rel="stylesheet" type="text/css" href="style.css">
+			<script type="text/javascript" src="assignment3p2.js"></script>
+		<title>Git Gist Search</title>		
+	</head>
+	<body>
+		<h3>Gist Search</h3>
+		<form id="form1">
+		Number of Pages Per Request:
+		<input type="number" name="numPages"> <br>
+		<br>
+		Languages <br>
+		<br>
+		<input type="checkbox" name="language1" value="JavaScript">JavaScript<br>
+		<br>
+		<input type="checkbox" name="language2" value="Python">Python<br>
+		<br>
+		<input type="checkbox" name="language3" value="JSON">JSON<br>
+		<br>
+		<input type="checkbox" name="language4" value="SQL">SQL<br>
+		<br>
+		<button onclick="javascript:search('https://api.github.com/gists');">Search</button>
+		</form>
+		
+		<div id="searchResults">
+		Search Results
+		</div>
+		<div id="favoritesList">
+		Favorites List
+		</div>
+	</body>
+</html>
