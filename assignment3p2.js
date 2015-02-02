@@ -1,3 +1,20 @@
+/*
+This is the file assignment3p2.js
+It accompanies assignment2p2.html
+Author: Dustin Chase
+E-mail: chased@onid.oregonstate.edu
+Assignment: 3 part 2 Javascript and AJAX
+Due Date: 2/1/15
+
+This program searches the git website for git gists. It displays these
+gists on a page and allows the user to save some of them for later viewing. 
+*/
+
+/*
+Function call when window loads or is refreshed. 
+This function checks local storage for any favorites 
+and displays them.
+*/
 window.onload = function () {
 	//load and display local storage
 	var favoritesDiv = document.getElementById("favoritesList"); 
@@ -48,6 +65,7 @@ window.onload = function () {
 	}
 }
 
+//create the http request used to query the gist webpage
 function createHttpRequestObject() {
 	var xmlHttp;
 
@@ -79,6 +97,8 @@ var httpRequest; //holds gist requests
 var JSONObj; //holds httpRequest text parsed to JSON objects
 var favorites = []; //array of user's favorites
 
+//this function filters the JSON gist objects and removes those
+//that do not match the user's requested languages. 
 function filter(JSONObj) {
 	var x, numResults, javaScript, Python, JSON, SQL;
 	x = document.getElementById("form1");
@@ -92,22 +112,23 @@ function filter(JSONObj) {
 		var files_object = JSONObj[i].files;
 			for (var j in files_object) {
 					var lang = files_object[j].language;
-					if (x.elements[1].checked === true && lang != "JavaScript" ||
+					if ((x.elements[1].checked === true && lang != "JavaScript") ||
 						(x.elements[2].checked === true && lang != "Python") ||
-						 x.elements[3].checked === true && lang != "JSON" ||
-						 x.elements[4].checked === true && lang != "SQL")
+						 (x.elements[3].checked === true && lang != "JSON") ||
+						 (x.elements[4].checked === true && lang != "SQL"))
 						{
 						JSONObj.splice(i, 1); 
 					}
 					else {
-					 //intentionally blank. do not remove any gists by language if
-					 //no options selected
+						//intentionally blank
 					}
 			}
 	}			
 	return JSONObj; 
 }
-function search(url) {
+
+//Create the AJAX request and send to server once ready
+function search() {
 	event.preventDefault();
 	var x, numResults, javaScript, Python, JSON, SQL;
 	x = document.getElementById("form1");
@@ -118,11 +139,13 @@ function search(url) {
 			console.log( x.elements[i].name + " input was: " + x.elements[i].value);
 	}
 	httpRequest = createHttpRequestObject(); 
-	httpRequest.open("GET", url, true)
+	httpRequest.open("GET", "https://api.github.com/gists/public", true)
 	httpRequest.send();
 	httpRequest.onreadystatechange = alertContents; 
 }
 
+//calls two other functions which generate the search results
+//table
 function alertContents() {
 	if(httpRequest.readyState === 4) {
 		if (httpRequest.status === 200) {

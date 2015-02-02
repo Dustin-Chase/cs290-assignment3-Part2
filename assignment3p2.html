@@ -10,7 +10,9 @@
 		<h3>Gist Search</h3>
 		<form id="form1">
 		Number of Pages Per Request:
-		<input type="number" name="numPages"> <br>
+		<select id="numPages"> 
+		<option value = 1>1</option>
+		</select>
 		<br>
 		Languages <br>
 		<br>
@@ -22,7 +24,7 @@
 		<br>
 		<input type="checkbox" name="language4" value="SQL">SQL<br>
 		<br>
-		<button onclick="javascript:search('https://api.github.com/gists');">Search</button>
+		<button onclick="javascript:search();">Search</button>
 		</form>
 		
 		<div id="searchResults">
